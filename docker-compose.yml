@@ -1,0 +1,55 @@
+version: '3.6'
+services:
+  gitlab-runner:
+    image: 'gitlab/gitlab-runner:latest'
+    restart: always
+    volumes:
+      - './runner:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    depends_on:
+      gitlab:
+        condition: service_healthy
+    links:
+      - gitlab
+    networks:
+      app_net:
+        ipv4_address: 192.168.100.20
+
+  gitlab:
+    image: 'gitlab/gitlab-ee:14.10.4-ee.0'
+    restart: always
+    hostname: 'gitlab.training.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.training.com'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2224
+        pages_external_url 'http://pages.training.com'
+        gitlab_pages['enable'] = true
+        gitlab_pages['listen_proxy'] = 'localhost:8090'
+        gitlab_pages['internal_gitlab_server'] = 'http://localhost:8080'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '2224:22'
+    volumes:
+      - './server/gitlab/config:/etc/gitlab'
+      - './server/gitlab/logs/:/var/log/gitlab'
+      - './server/gitlab/data/:/var/opt/gitlab'
+    shm_size: '256m'
+    healthcheck:
+      # You need to add host setting to /etc/hosts
+      test: ["CMD", "curl", "-f", "http://gitlab.training.com"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+    networks:
+      app_net:
+        ipv4_address: 192.168.100.10
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.100.0/24

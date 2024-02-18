@@ -1,0 +1,5 @@
+runner/.runner_system_id
+server/gitlab/config/**
+server/gitlab/data/**
+server/gitlab/logs/**
+!.gitkeep
