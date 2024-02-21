@@ -1,0 +1,17 @@
+image: python:3.11
+
+before_script:
+  - pip install poetry
+  - poetry install
+  - source `poetry env info --path`/bin/activate
+
+pages:
+  stage: deploy
+  script:
+  - echo 'pdoc html generation'
+  - pdoc --html --force --output-dir public src
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
