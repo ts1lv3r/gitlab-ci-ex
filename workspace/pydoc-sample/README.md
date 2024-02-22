@@ -1,5 +1,6 @@
-# pydoc-sample
+# pdoc-sample
 
 ## Note
 
-- pdocの生成URLが`<generated_url>/src/`になってしまっているので、URLをクリックした際にindexが表示されない問題が残る
+- Because generated URL by pdoc is `<generated_url>/src/`, so there is problem that it won't index page when clicked url.
+- Runner needs to be docker executer, not shell executer

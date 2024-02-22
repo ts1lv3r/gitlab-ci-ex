@@ -1,6 +1,9 @@
-# GitLab CI Experiment Environment
+# GitLab CI Experimental Environment
 
-> [Blog as Reference](https://blogs.networld.co.jp/entry/2022/09/12/090000)
+## Reference
+
+- [GitLab Server and Pages Setup](https://blogs.networld.co.jp/entry/2022/09/12/090000)
+- [GitLab Runner Setup](https://blogs.networld.co.jp/entry/2022/03/10/090000)
 
 ## Prerequisite
 
@@ -24,11 +27,6 @@
     192.168.100.10 pages.training.com
     192.168.100.10 *.pages.training.com
     ```
-
-## Procedure
-
-- [GitLab Server and Pages Setup](https://blogs.networld.co.jp/entry/2022/09/12/090000)
-- [GitLab Runner Setup](https://blogs.networld.co.jp/entry/2022/03/10/090000)
 
 ## Issue
 
